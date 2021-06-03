@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<style>
+    body{
+    background-color: #638cBB;
+        }
+    input{
+        width:100%;
+        padding: 12px ,20px;
+        margin:8px 0;
+        box-sizing: border-box;
+    }
+
+    input::placeholder{color:rgba(0, 0, 0, 0.562)}
+
+    .submit{background-color: blanchedalmond;}
+    .center-column{
+        width:600px;
+        margin:20px auto;
+        background-color: rgb(219, 223, 25);
+        border-radius: 3px;
+        box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    }
+    .item-row{
+        background-color: rgba(61, 68, 170, 0.877) ;
+        margin:10px;
+        padding:20px;
+        border-radius: 3px;
+        color:black;
+        font-size: 16px;
+        box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+    }
+    button{
+        align-self: left;
+    }
+
+</style>
+
+<div class="center-column">
+
+    <form  method="post" action="/">
+    {% csrf_token %}
+    {{forms.title}}
+    <button class="btn btn-sm btn-info " type="submit" > Create Task </button>
+    </form>
+
+    
+    {% for task in tasks %}
+    <div class= 'item-row'>
+
+        {% if task.complete == True %}
+        <p>   <s>  {{task}}  is Done!!</p> </s>
+        {% else %}
+            <strong> {{task}} </strong>
+            <br>
+        {% endif %}
+
+         <a class="btn btn-sm btn-primary" href="{% url 'update_task' task.id  %}">Update</a> 
+        <span> <a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id  %}">Delete</a> <br> </span>
+        
+        <p></p>
+
+    </div>
+    
+    {% endfor %}
+    
+</div>
